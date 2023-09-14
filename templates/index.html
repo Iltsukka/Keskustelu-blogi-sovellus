@@ -1,3 +1,11 @@
+<h1>Welcome</h1>
+
+{% if session.username %}
+
+<h2>{{session.username}} has logged in</h2>
+
+{% else %}
+
 <form action="/login" method="POST">
     <p>Username: 
     <br>
@@ -9,3 +17,7 @@
     </p>
     <input type="submit" value="Log in">
 </form>
+
+<a href="/create_form">Or create a new account</a>
+
+{% endif %}
