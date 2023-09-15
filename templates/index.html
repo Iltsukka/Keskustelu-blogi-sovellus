@@ -3,6 +3,10 @@
 {% if session.username %}
 
 <h2>{{session.username}} has logged in</h2>
+<form action="/blogform" method="POST">
+    <input type="submit" value="create new post">
+</form>
+
 <form action="/log_out", method="POST">
     <input type="submit" value="log out">
 </form>
