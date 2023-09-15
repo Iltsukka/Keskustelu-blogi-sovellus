@@ -1,5 +1,5 @@
 <h2>We are happy to have you!</h2>
-<form action="/add_user" method="POST">
+<form action="/add_user" method="POST" onsubmit="return confirm(this)">
     <p>Username:
     <br>
     <input type="text" name="username">
@@ -14,3 +14,13 @@
     </p>
     <input type="submit" value="Create an account">
 </form>
+
+<script>
+    const confirm = (form) => {
+        if (form.password.value !== form.password2.value) {
+            alert('passwords must match')
+            return false
+        }
+        return true
+    }
+</script>

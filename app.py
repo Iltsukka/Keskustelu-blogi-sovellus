@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import redirect, render_template, request
+from flask import redirect, render_template, request, session
 from os import getenv
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
@@ -7,6 +7,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = getenv('DATABASE_URL')
+app.secret_key = getenv('SECRET_KEY')
 db = SQLAlchemy(app)
 
 #tämä on vain testi poistan myöhemmin
@@ -24,7 +25,18 @@ def index():
 def login():
     username = request.form['username']
     password = request.form['password']
-    return render_template('login.html')
+    sql = text('SELECT username, password FROM users WHERE username=:username')
+    result = db.session.execute(sql, {"username":username})
+    user_info = result.fetchone()
+    if user_info:
+        hash = user_info.password
+        if check_password_hash(hash, password):
+            session['username'] = username
+            return redirect('/')
+        else:
+            return 'wrong password'
+    else:
+        return 'invalid username'
 
 @app.route('/create_form')
 def createform():
@@ -40,5 +52,10 @@ def add_user():
     db.session.execute(sql, {'username':username, 'password':hash})
     db.session.commit()
     return 'success?'
+
+@app.route('/log_out', methods=['POST'])
+def log_out():
+    del session['username']
+    return redirect('/')
     
     
