@@ -3,9 +3,24 @@
 {% if session.username %}
 
 <h2>{{session.username}} has logged in</h2>
+
 <form action="/blogform" method="POST">
     <input type="submit" value="create new post">
 </form>
+
+<div>
+    Current blogposts:
+    <hr>
+    {% for blog in blogs %}
+    {{blog.topic}}
+    <br>
+    <br>
+    Created by {{blog.username}} on {{blog.time_of.strftime('%Y-%m-%d')}}<br>
+    <a href="/comments">Comment</a>
+    <hr>
+    {% endfor %}
+</div>
+<br>
 
 <form action="/log_out", method="POST">
     <input type="submit" value="log out">

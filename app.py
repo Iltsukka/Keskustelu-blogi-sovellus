@@ -19,6 +19,11 @@ def testi():
 
 @app.route('/')
 def index():
+    sql = text('SELECT * FROM blogs')
+    result = db.session.execute(sql)
+    blogs = result.fetchall()
+    if blogs:
+        return render_template('index.html', blogs=blogs)
     
     return render_template('index.html')
 
