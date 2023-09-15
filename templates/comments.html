@@ -1,0 +1,17 @@
+{{blog.topic}}
+<br>
+<br>
+by {{blog.username}} {{blog.time_of.strftime('%Y-%m-%d')}}
+<hr>
+
+Add comment:
+<form action="">
+    <textarea cols="40" rows="4"></textarea>
+    <br>
+    <input type="submit" value="Send">
+</form>
+
+Comments:
+
+{% for comment in comments%}
+{% endfor %}

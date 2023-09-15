@@ -85,5 +85,10 @@ def create_blog():
     else:
         return 'error creating a blog'
 
-    
-    
+@app.route('/add_comments/<int:id>')
+def add_comments(id):
+    sql = text('SELECT * FROM blogs WHERE id=:id')
+    result = db.session.execute(sql, {"id":id})
+    blog = result.fetchone()
+    return render_template('comments.html', blog=blog)
+
