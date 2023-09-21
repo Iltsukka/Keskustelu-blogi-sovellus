@@ -85,10 +85,25 @@ def create_blog():
     else:
         return 'error creating a blog'
 
-@app.route('/add_comments/<int:id>')
-def add_comments(id):
+@app.route('/visit/<int:id>')
+def visit(id):
     sql = text('SELECT * FROM blogs WHERE id=:id')
     result = db.session.execute(sql, {"id":id})
     blog = result.fetchone()
-    return render_template('comments.html', blog=blog)
+    sql2 = text('SELECT * FROM comments WHERE :id=blog_id')
+    result2 = db.session.execute(sql2, {"id":id})
+    comments = result2.fetchall()
+    return render_template('comments.html', blog=blog, comments=comments)
+
+@app.route('/add_comment/<int:id>', methods=['POST'])
+def add_comment(id):
+    content = request.form['content']
+    if content == '':
+        return 'cant send empty comments (will proper error later)'
+    username = session['username']
+    blog_id = id
+    sql = text('INSERT INTO comments (content, date_of, username, blog_id) VALUES (:content, NOW(), :username, :blog_id)')
+    db.session.execute(sql, {"content":content, "username":username, "blog_id":blog_id})
+    db.session.commit()
+    return redirect(f"/visit/{id}")
 

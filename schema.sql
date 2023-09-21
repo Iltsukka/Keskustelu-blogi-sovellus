@@ -17,3 +17,11 @@ CREATE TABLE blogs (
     time_of TIMESTAMP
     
 );
+
+CREATE TABLE comments (
+    id SERIAL PRIMARY KEY,
+    content TEXT,
+    username TEXT,
+    date_of TIMESTAMP,
+    blog_id INTEGER REFERENCES blogs
+);
