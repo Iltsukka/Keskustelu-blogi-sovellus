@@ -20,6 +20,9 @@
         if (form.password.value !== form.password2.value) {
             alert('passwords must match')
             return false
+        } else if (form.username.value === '' || form.password.value === '') {
+            alert('username and password cannot be empty')
+            return false
         }
         return true
     }

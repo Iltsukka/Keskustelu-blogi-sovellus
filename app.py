@@ -40,9 +40,9 @@ def login():
             session['username'] = username
             return redirect('/')
         else:
-            return 'wrong password'
+            return render_template('error.html', error_message='Invalid username or password')
     else:
-        return 'invalid username'
+        return render_template('error.html', error_message='Invalid username or password')
 
 @app.route('/create_form')
 def createform():
@@ -54,9 +54,9 @@ def add_user():
     password = request.form['password']
     password2 = request.form['password2']
     if password == '' or username == '':
-        return 'error template will be updated here'
+        return render_template('error.html', error_message='Password and username cannot be empty')
     if password != password2:
-        return 'some error'
+        return render_template('error.html', error_message='passwords must match')
     hash = generate_password_hash(password)
     sql = text('INSERT INTO users (username, password) VALUES (:username, :password)')
     db.session.execute(sql, {'username':username, 'password':hash})
@@ -76,6 +76,10 @@ def blogform():
 @app.route('/create_blog', methods=['POST'])
 def create_blog():
     topic = request.form['topic']
+    if len(topic) < 20 or len(topic) > 400:
+        return render_template('error.html', error_message='Post must be between 20 and 400 characters long')
+    if topic == '':
+        return render_template('error.html', error_message='post cannot be empty')
     username = session['username']
     sql = text("INSERT INTO blogs (topic, username, time_of) VALUES (:topic, :username, NOW())")
     if username:
@@ -83,7 +87,7 @@ def create_blog():
         db.session.commit()
         return redirect('/')
     else:
-        return 'error creating a blog'
+        return render_template('error.html', error_message='Did not succesfully create a blog')
 
 @app.route('/visit/<int:id>')
 def visit(id):
@@ -99,11 +103,16 @@ def visit(id):
 def add_comment(id):
     content = request.form['content']
     if content == '':
-        return 'cant send empty comments (will proper error later)'
+        return render_template('error.html', error_message='empty comments are not allowed')
+    if len(content) < 10 or len(content) > 400:
+        return render_template('error.html', error_message='Comments must be between 10 and 400 characters long!')
     username = session['username']
-    blog_id = id
-    sql = text('INSERT INTO comments (content, date_of, username, blog_id) VALUES (:content, NOW(), :username, :blog_id)')
-    db.session.execute(sql, {"content":content, "username":username, "blog_id":blog_id})
-    db.session.commit()
-    return redirect(f"/visit/{id}")
+    if username:
+        blog_id = id
+        sql = text('INSERT INTO comments (content, date_of, username, blog_id) VALUES (:content, NOW(), :username, :blog_id)')
+        db.session.execute(sql, {"content":content, "username":username, "blog_id":blog_id})
+        db.session.commit()
+        return redirect(f"/visit/{id}")
+    else:
+        return render_template('error.html', error_message='Only logged in users can send comments')
 

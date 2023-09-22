@@ -5,7 +5,7 @@ by {{blog.username}} {{blog.time_of.strftime('%Y-%m-%d')}}
 <hr>
 
 Add comment:
-<form action="/add_comment/{{blog.id}}", method="POST">
+<form action="/add_comment/{{blog.id}}", method="POST" onsubmit="return validComments(this)">
     <textarea name='content' cols="40" rows="4"></textarea>
     <br>
     <input type="submit" value="Send">
@@ -22,3 +22,16 @@ Comments:
 by {{comment.username}}
 <hr>
 {% endfor %}
+
+<script>
+    const validComments = (form) => {
+        if (form.content.value === '') {
+            alert('Can"t send empty comments!')
+            return false
+        } else if (form.content.value.length < 10 || form.contnet.value.length > 400) {
+            alert('Comments must be between 10 and 400 characters long')
+            return false
+        }
+        return true
+    }
+</script>

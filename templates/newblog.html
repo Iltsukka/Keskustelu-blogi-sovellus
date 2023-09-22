@@ -1,5 +1,5 @@
 <h2>Post something for all to see and comment</h2>
-<form action="create_blog" method="POST">
+<form action="create_blog" method="POST" onsubmit="return valueHandler(this)">
 <p>Title:
     <br>
     <textarea name="topic" rows="4" cols="30"></textarea>
@@ -8,3 +8,19 @@
     
 </p>
 </form>
+
+<script>
+    const valueHandler = (form) => {
+        if (form.topic.value === '') {
+            alert('Post cannot be empty!')
+            return false
+        } else if (form.topic.value.length < 20) {
+            alert('Posts have minimum length of 10 characters')
+            return false
+        } else if (form.topic.value.length > 400) {
+            alert('Maximum length for blogpost is 400 characters')
+            return false
+        }
+        return true
+    }
+</script>
