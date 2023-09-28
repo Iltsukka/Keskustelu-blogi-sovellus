@@ -1,0 +1,36 @@
+.content {
+    border: 1px solid;
+}
+
+body {
+    max-width: 50em;
+    margin: auto;
+}
+
+nav {
+    background-color: gray;
+    padding: 5px;
+    position: sticky;
+    top: 0;
+    display: flex;
+    padding: 20px;
+    list-style-type: none;
+    gap: 20px;
+    align-items: center;
+}   
+
+
+
+li {
+    font-size: 20px;
+}
+
+#loginpage {
+    margin-left: 10px;
+    padding: 30px;
+}
+
+#newuserpage {
+    margin-left: 10px;
+    padding: 30px;
+}

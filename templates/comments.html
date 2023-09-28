@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+{% block title %}Add comment{% endblock %}
+{% block content %}
 {{blog.topic}}
 <br>
 <br>
@@ -35,3 +38,5 @@ by {{comment.username}}
         return true
     }
 </script>
+
+{% endblock %}

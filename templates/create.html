@@ -1,4 +1,9 @@
+{% extends "layout.html" %}
+{% block title %}
 <h2>We are happy to have you!</h2>
+{% endblock %}
+{% block content %}
+<div id="newuserpage">
 <form action="/add_user" method="POST" onsubmit="return confirm(this)">
     <p>Username:
     <br>
@@ -14,7 +19,8 @@
     </p>
     <input type="submit" value="Create an account">
 </form>
-
+    <a href="/">Back to login</a>
+</div>
 <script>
     const confirm = (form) => {
         if (form.password.value !== form.password2.value) {
@@ -27,3 +33,5 @@
         return true
     }
 </script>
+
+{% endblock %}

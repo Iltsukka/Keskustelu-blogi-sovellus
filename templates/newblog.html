@@ -1,4 +1,8 @@
+{% extends "layout.html" %}
+{% block title %}
 <h2>Post something for all to see and comment</h2>
+{% endblock %}
+{% block content %}
 <form action="create_blog" method="POST" onsubmit="return valueHandler(this)">
 <p>Title:
     <br>
@@ -15,7 +19,7 @@
             alert('Post cannot be empty!')
             return false
         } else if (form.topic.value.length < 20) {
-            alert('Posts have minimum length of 10 characters')
+            alert('Posts have minimum length of 20 characters')
             return false
         } else if (form.topic.value.length > 400) {
             alert('Maximum length for blogpost is 400 characters')
@@ -24,3 +28,4 @@
         return true
     }
 </script>
+{% endblock %}

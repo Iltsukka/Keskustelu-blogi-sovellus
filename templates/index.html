@@ -1,4 +1,6 @@
-<h1>Welcome</h1>
+{% extends "layout.html" %}
+{% block title %}Welcome{% endblock %}
+{% block content %}
 
 {% if session.username %}
 
@@ -6,6 +8,10 @@
 
 <form action="/blogform" method="POST">
     <input type="submit" value="create new post">
+</form>
+
+<form action="/log_out", method="POST">
+    <input type="submit" value="log out">
 </form>
 
 <div>
@@ -24,12 +30,10 @@
 </div>
 <br>
 
-<form action="/log_out", method="POST">
-    <input type="submit" value="log out">
-</form>
+
 
 {% else %}
-
+<div id="loginpage">
 <form action="/login" method="POST">
     <p>Username: 
     <br>
@@ -43,5 +47,7 @@
 </form>
 
 <a href="/create_form">Or create a new account</a>
+</div>
 
 {% endif %}
+{% endblock %}
