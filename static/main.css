@@ -34,3 +34,7 @@ li {
     margin-left: 10px;
     padding: 30px;
 }
+
+.content {
+    background-color: gold;
+}
