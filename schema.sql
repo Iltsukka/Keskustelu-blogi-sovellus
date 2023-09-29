@@ -14,7 +14,8 @@ CREATE TABLE blogs (
     id SERIAL PRIMARY KEY,
     topic TEXT,
     username TEXT,
-    time_of TIMESTAMP
+    time_of TIMESTAMP,
+    visible BOOLEAN
     
 );
 
