@@ -22,7 +22,7 @@ Comments:
 {% for comment in comments%}
 {{comment.content}}
 <br>
-by {{comment.username}}
+by {{comment.username}} {{comment.date_of.strftime('%Y-%m-%d')}}
 <hr>
 {% endfor %}
 
