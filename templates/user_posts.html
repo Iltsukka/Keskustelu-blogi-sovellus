@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}Edit or delete posts{% endblock %}
+{% block content %}
+{% for blog in blogs %}
+{% if blog.visible == true %}
+{{blog.topic}}
+<br>
+<br>
+<form>
+    <input type="submit" value="edit">
+</form>
+<form action="/delete_blog/{{blog.id}}" method="POST">
+    <input type="submit" value="delete">
+</form>
+<hr>
+{% endif %}
+{% endfor %}
+{% endblock %}
