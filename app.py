@@ -59,10 +59,13 @@ def add_user():
         return render_template('error.html', error_message='passwords must match')
     hash = generate_password_hash(password)
     sql = text('INSERT INTO users (username, password) VALUES (:username, :password)')
-    db.session.execute(sql, {'username':username, 'password':hash})
-    db.session.commit()
-    session['username'] = username
-    return redirect('/')
+    try:
+        db.session.execute(sql, {'username':username, 'password':hash})
+        db.session.commit()
+        session['username'] = username
+        return redirect('/')
+    except:
+        return render_template('error.html', error_message='Username already in use')
 
 @app.route('/log_out', methods=['POST'])
 def log_out():
