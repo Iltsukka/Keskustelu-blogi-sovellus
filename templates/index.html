@@ -18,6 +18,7 @@
     Current blogposts:
     <hr>
     {% for blog in blogs %}
+    {% if blog.visible == true %}
     {{blog.topic}}
     <br>
     <br>
@@ -26,6 +27,7 @@
     <br>
     <a href="/visit/{{blog.id}}">Visit</a>
     <hr>
+    {% endif %}
     {% endfor %}
 </div>
 <br>

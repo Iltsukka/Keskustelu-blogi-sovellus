@@ -118,4 +118,24 @@ def add_comment(id):
         return redirect(f"/visit/{id}")
     else:
         return render_template('error.html', error_message='Only logged in users can send comments')
+    
+@app.route('/user_posts')
+def user_posts():
+    username = session['username']
+    if username:
+        sql = text('SELECT * FROM blogs WHERE username=:username')
+        result = db.session.execute(sql, {"username":username})
+        blogs = result.fetchall()
+        return render_template('user_posts.html', blogs=blogs)
+    else:
+        return render_template('error.html', error_message='Action only allowed for users logged in')
 
+@app.route('/delete_blog/<int:id>', methods=['POST'])
+def delete_blog(id):
+    try:
+        sql = text('UPDATE blogs SET visible=FALSE WHERE id=:id')
+        db.session.execute(sql, {'id':id})
+        db.session.commit()
+        return redirect('/user_posts')
+    except:
+        return render_template('error.html', error_message='Blog could not be deleted')
