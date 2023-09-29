@@ -84,7 +84,7 @@ def create_blog():
     if topic == '':
         return render_template('error.html', error_message='post cannot be empty')
     username = session['username']
-    sql = text("INSERT INTO blogs (topic, username, time_of) VALUES (:topic, :username, NOW())")
+    sql = text("INSERT INTO blogs (topic, username, time_of, visible) VALUES (:topic, :username, NOW(), TRUE)")
     if username:
         db.session.execute(sql, {"topic":topic, "username":username})
         db.session.commit()
