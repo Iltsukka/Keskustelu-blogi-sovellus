@@ -5,6 +5,8 @@ Edit the content of your post
 {% block content %}
 {{blog.topic}}
 <br>
+{{blog.time_of.strftime('%Y-%m-%d')}}
+<br>
 <hr>
 <p>New title:</p>
 <form action="/change_topic/{{blog.id}}" method="POST">
