@@ -6,7 +6,7 @@
 {{blog.topic}}
 <br>
 <br>
-<form>
+<form action="/edit/{{blog.id}}" method="POST">
     <input type="submit" value="edit">
 </form>
 <form action="/delete_blog/{{blog.id}}" method="POST">

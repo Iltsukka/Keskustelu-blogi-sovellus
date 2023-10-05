@@ -139,3 +139,23 @@ def delete_blog(id):
         return redirect('/user_posts')
     except:
         return render_template('error.html', error_message='Blog could not be deleted')
+
+@app.route('/edit/<int:id>', methods=['POST'])
+def edit(id):
+    sql = text('SELECT * FROM blogs WHERE id=:id')
+    result = db.session.execute(sql, {"id":id})
+    blog = result.fetchone()
+    return render_template('edit.html', blog=blog)
+
+@app.route('/change_topic/<int:id>', methods=['POST'])
+def change_topic(id):
+    topic = request.form['newtopic']
+    if len(topic) <20 or len(topic)> 400:
+        return render_template('error.html', error_message='Post must be between 20 and 400 characters long')
+    try:
+        sql = text('UPDATE blogs SET topic=:topic WHERE id=:id')
+        db.session.execute(sql, {"topic":topic, "id":id})
+        db.session.commit()
+        return redirect('/user_posts')
+    except:
+        return render_template('error.html', error_message='Something went wrong trying to edit blog topic')

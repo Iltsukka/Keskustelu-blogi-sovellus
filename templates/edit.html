@@ -1,0 +1,15 @@
+{% extends "layout.html"%}
+{% block title %}
+Edit the content of your post
+{% endblock %}
+{% block content %}
+{{blog.topic}}
+<br>
+<hr>
+<p>New title:</p>
+<form action="/change_topic/{{blog.id}}" method="POST">
+    <textarea name="newtopic" cols="25" rows="5"></textarea>
+    <br>
+    <input type="submit" value="post changes">
+</form>
+{% endblock %}
