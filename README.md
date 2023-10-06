@@ -4,8 +4,12 @@ Projektin aihe on blogisovellus, jossa käyttäjät voivat luoda uuden viestiket
 
 
 Nykyinen tila:
+1. palautus:
 Perustoiminnallisuudet ovat hyvällä mallilla ja sovellus kommunikoi tietokannan kanssa. Kirjautuminen ja uloskirjautuminen on mahdollista. Taulujen osalta ajattelin vielä jotenkin laajentaa sovellusta, että saisi ainakin sen viisi taulua käyttöön.  
-Virheidenkäsittelyyn, (mm. salasanan minimipituus jne.) en ole vielä kiinnittänyt huomiota ja toteutan sen myöhemmin. Ulkoasun kanssa sama juttu.  
+Virheidenkäsittelyyn, (mm. salasanan minimipituus jne.) en ole vielä kiinnittänyt huomiota ja toteutan sen myöhemmin. Ulkoasun kanssa sama juttu. 
+
+2. palautus:
+Sovelluksella on jonkinlainen ulkonäkö ja navigaatiopalkki, jolla siirtyä keskeisimpien toimintojen välillä. Postausten muokkaus- ja poistomahdollisuus on lisätty. Koodi on mielestäni selkeää, vaikkakin tietokantapyynnöt voisi ulkoistaa omaan moduuliin. Tietokantatauluja on edelleen 3, mutta ajattelin vielä lisätä pari taulua yksinkertaisten kyselyjen laatimiseen. Keskeisimmät toiminnot ovat kuitenkin jo hyvällä mallilla.
 
 
 
