@@ -190,4 +190,24 @@ def create_poll():
         return redirect('/polls')
     except:
         return render_template('error.html', error_message='Something went wrong creating the poll')
+    
+@app.route('/answer_poll/<int:id>')
+def answer_poll(id):
+    sql = text('SELECT questions, created_at, username FROM polls WHERE id=:id')
+    result = db.session.execute(sql, {"id":id})
+    question = result.fetchone()
+    sql2 = text('SELECT id, option FROM options WHERE poll_id=:id')
+    result2 = db.session.execute(sql2, {"id":id})
+    options = result2.fetchall()
+    return render_template('answer_poll.html', question=question, options=options)
+
+@app.route('/poll_answers', methods=['POST'])
+def poll_answers():
+    if 'input' in request.form:
+        option_id = request.form['input']
+        sql = text('INSERT INTO answers (options_id, made_at) VALUES (:option_id, NOW())')
+        db.session.execute(sql, {"option_id":option_id})
+        db.session.commit()
+        return redirect('/polls')
+
 

@@ -39,3 +39,9 @@ CREATE TABLE options (
     poll_id INTEGER REFERENCES polls,
     option TEXT
 );
+
+CREATE TABLE answers (
+    id SERIAL PRIMARY KEY,
+    options_id INTEGER REFERENCES options,
+    made_at TIMESTAMP
+)

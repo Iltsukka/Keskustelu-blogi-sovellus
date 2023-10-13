@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %} Answer the poll {% endblock %}
+{% block content %}
+{% if session. username %}
+{{question[0]}}
+
+<form action="/poll_answers", method="POST">
+    {% for option in options %}
+    <input type="radio" name='input' value="{{option[0]}}">{{option[1]}}
+    <br>
+    {% endfor %}
+    <input type="submit" value="Send">
+</form>
+{% endif %}
+{% endblock %}

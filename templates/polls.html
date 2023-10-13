@@ -11,6 +11,11 @@ Polls
 <br>
 Created by {{poll.username}} 
 on {{poll.created_at.strftime('%Y-%m-%d')}}
+<br>
+<a href="/answer_poll/{{poll.id}}">Answer the poll</a>
+<br>
+<a href="/check_answers/{{poll.id}}">See the results!</a>
 <hr>
+
 {% endfor %}
 {% endblock %}
