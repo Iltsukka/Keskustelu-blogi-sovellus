@@ -10,13 +10,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = getenv('DATABASE_URL')
 app.secret_key = getenv('SECRET_KEY')
 db = SQLAlchemy(app)
 
-#tämä on vain testi poistan myöhemmin
-@app.route('/testi')
-def testi():
-    result = db.session.execute(text('SELECT content FROM messages'))
-    messages = result.fetchall()
-    return render_template('testi.html', count=len(messages), messages=messages)
-
 @app.route('/')
 def index():
     sql = text('SELECT * FROM blogs')
