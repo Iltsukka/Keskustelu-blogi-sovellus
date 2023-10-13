@@ -159,3 +159,29 @@ def change_topic(id):
         return redirect('/user_posts')
     except:
         return render_template('error.html', error_message='Something went wrong trying to edit blog topic')
+    
+@app.route('/polls')
+def polls():
+    return render_template('polls.html')
+
+@app.route('/newpoll')
+def new_poll():
+    return render_template('new_poll.html')
+
+@app.route('/create_poll', methods=['POST'])
+def create_poll():
+    try:
+        question = request.form['question']
+        sql = text('INSERT INTO polls (questions, created_at) VALUES (:question, NOW()) RETURNING id')
+        result = db.session.execute(sql, {"question":question})
+        question_id = result.fetchone()[0]
+        options = request.form.getlist('option')
+        for option in options:
+            if option != '':
+                sql2 = text('INSERT INTO options (poll_id, option) VALUES (:question_id, :option)')
+                db.session.execute(sql2, {"question_id":question_id, "option":option})
+        db.session.commit()
+        return redirect('/polls')
+    except:
+        return render_template('error.html', error_message='Something went wrong creating the poll')
+

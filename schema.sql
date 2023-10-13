@@ -26,3 +26,15 @@ CREATE TABLE comments (
     date_of TIMESTAMP,
     blog_id INTEGER REFERENCES blogs
 );
+
+CREATE TABLE polls (
+    id SERIAL PRIMARY KEY,
+    questions TEXT,
+    created_at TIMESTAMP
+);
+
+CREATE TABLE options (
+    id SERIAL PRIMARY KEY,
+    poll_id INTEGER REFERENCES polls,
+    option TEXT
+);

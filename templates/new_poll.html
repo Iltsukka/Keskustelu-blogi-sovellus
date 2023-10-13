@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block title %}
+Ask a question with some answer options
+{% endblock %}
+{% block content %}
+<form action="/create_poll", method="POST">
+    <p>
+        Question:
+        <br>
+        <input type="text" name="question">
+    </p>
+    <p>
+        Option 1:
+        <br>
+        <input type="text" name="option">
+    </p>
+    <p>
+        Option 2:
+        <br>
+        <input type="text" name="option">
+    </p>
+    <p>
+        Option 3:
+        <br>
+        <input type="text" name="option">
+    </p>
+    <input type="submit" value="create poll">
+</form>
+{% endblock %}
