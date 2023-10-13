@@ -4,4 +4,13 @@ Polls
 {% endblock %}
 {% block content %}
 <a href="/newpoll">Create a new poll</a>
+<hr>
+{% for poll in polls %}
+{{poll.questions}}
+<br>
+<br>
+Created by {{poll.username}} 
+on {{poll.created_at.strftime('%Y-%m-%d')}}
+<hr>
+{% endfor %}
 {% endblock %}

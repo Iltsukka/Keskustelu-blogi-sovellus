@@ -30,7 +30,8 @@ CREATE TABLE comments (
 CREATE TABLE polls (
     id SERIAL PRIMARY KEY,
     questions TEXT,
-    created_at TIMESTAMP
+    created_at TIMESTAMP,
+    username TEXT
 );
 
 CREATE TABLE options (

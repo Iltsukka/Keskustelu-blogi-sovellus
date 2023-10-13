@@ -162,7 +162,10 @@ def change_topic(id):
     
 @app.route('/polls')
 def polls():
-    return render_template('polls.html')
+    sql = text('SELECT id, questions, created_at, username FROM polls ORDER BY id')
+    result = db.session.execute(sql)
+    polls = result.fetchall()
+    return render_template('polls.html', polls=polls)
 
 @app.route('/newpoll')
 def new_poll():
@@ -171,9 +174,12 @@ def new_poll():
 @app.route('/create_poll', methods=['POST'])
 def create_poll():
     try:
+        username = session['username']
+        if not username:
+            return render_template('error.html', error_message='This action is for logged in users only')
         question = request.form['question']
-        sql = text('INSERT INTO polls (questions, created_at) VALUES (:question, NOW()) RETURNING id')
-        result = db.session.execute(sql, {"question":question})
+        sql = text('INSERT INTO polls (questions, created_at, username) VALUES (:question, NOW(), :username) RETURNING id')
+        result = db.session.execute(sql, {"question":question, "username":username})
         question_id = result.fetchone()[0]
         options = request.form.getlist('option')
         for option in options:
