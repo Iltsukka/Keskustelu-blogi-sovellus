@@ -202,5 +202,14 @@ def poll_answers():
         db.session.execute(sql, {"option_id":option_id})
         db.session.commit()
         return redirect('/polls')
-
+    
+@app.route('/check_answers/<int:id>')
+def check_answers(id):
+    sql = text('SELECT O.option, COUNT(A.id) FROM options O LEFT JOIN answers A ON A.options_id=O.id WHERE O.poll_id=:id GROUP BY O.id')
+    result = db.session.execute(sql, {"id":id})
+    answers = result.fetchall()
+    sql2 = text('SELECT id, questions, created_at, username FROM polls WHERE id=:id')
+    result2 = db.session.execute(sql2, {"id":id})
+    poll = result2.fetchone()
+    return render_template('poll_answers.html', poll=poll, answers=answers)
 

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %}
+Poll results!
+{% endblock %}
+{% block content %}
+Question: 
+{{poll['questions']}}
+<br>
+Created by {{poll['username']}} on {{poll.created_at.strftime('%Y-%m-%d')}}
+<br>
+<hr>
+Answers:
+{% for answer in answers %}
+<div>{{answer[0]}} has {{answer[1]}} votes</div>
+<br>
+{% endfor %}
+{% endblock %}
