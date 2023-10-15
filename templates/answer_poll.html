@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block title %} Answer the poll {% endblock %}
 {% block content %}
-{% if session. username %}
+{% if session.username %}
 {{question[0]}}
 
 <form action="/poll_answers", method="POST">

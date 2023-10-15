@@ -171,10 +171,19 @@ def create_poll():
         if not username:
             return render_template('error.html', error_message='This action is for logged in users only')
         question = request.form['question']
+        if question == '' or len(question)<10:
+            return render_template("error.html", error_message='Min length for poll topic is 10 characters')
         sql = text('INSERT INTO polls (questions, created_at, username) VALUES (:question, NOW(), :username) RETURNING id')
         result = db.session.execute(sql, {"question":question, "username":username})
         question_id = result.fetchone()[0]
         options = request.form.getlist('option')
+        empty = 0
+        for option in options:
+            if option == '':
+                empty+=1
+        if empty > 1:
+            return render_template('error.html', error_message='Atleast 2 options must be chosen.')
+
         for option in options:
             if option != '':
                 sql2 = text('INSERT INTO options (poll_id, option) VALUES (:question_id, :option)')
@@ -202,6 +211,8 @@ def poll_answers():
         db.session.execute(sql, {"option_id":option_id})
         db.session.commit()
         return redirect('/polls')
+    else:
+        return render_template('error.html', error_message='No valid answer given')
     
 @app.route('/check_answers/<int:id>')
 def check_answers(id):
