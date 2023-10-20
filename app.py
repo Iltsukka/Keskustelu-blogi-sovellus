@@ -12,8 +12,8 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
-    sql = text('SELECT * FROM blogs')
-    result = db.session.execute(sql)
+    sql2 = text('SELECT b.id, b.topic, b.username, b.time_of, b.visible, COUNT(c.id) FROM blogs b LEFT JOIN comments c ON b.id=c.blog_id GROUP BY b.id ORDER BY b.id DESC')
+    result = db.session.execute(sql2)
     blogs = result.fetchall()
     if blogs:
         return render_template('index.html', blogs=blogs)
