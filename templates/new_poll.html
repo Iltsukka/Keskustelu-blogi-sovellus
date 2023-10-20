@@ -3,6 +3,7 @@
 Ask a question with some answer options
 {% endblock %}
 {% block content %}
+{% if session.username %}
 <form action="/create_poll", method="POST">
     <p>
         Question:
@@ -26,4 +27,5 @@ Ask a question with some answer options
     </p>
     <input type="submit" value="create poll">
 </form>
+{% endif %}
 {% endblock %}

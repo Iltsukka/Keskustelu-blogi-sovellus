@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Add comment{% endblock %}
 {% block content %}
+{% if session.username %}
 {{blog.topic}}
 <br>
 <br>
@@ -38,5 +39,5 @@ by {{comment.username}} {{comment.date_of.strftime('%Y-%m-%d')}}
         return true
     }
 </script>
-
+{% endif %}
 {% endblock %}

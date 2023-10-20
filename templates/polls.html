@@ -3,6 +3,7 @@
 Polls
 {% endblock %}
 {% block content %}
+{% if session.username %}
 <a href="/newpoll">Create a new poll</a>
 <hr>
 {% for poll in polls %}
@@ -18,4 +19,5 @@ on {{poll.created_at.strftime('%Y-%m-%d')}}
 <hr>
 
 {% endfor %}
+{% endif %}
 {% endblock %}

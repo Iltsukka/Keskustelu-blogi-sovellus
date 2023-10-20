@@ -3,6 +3,7 @@
 Poll results!
 {% endblock %}
 {% block content %}
+{% if session.username %}
 Question: 
 {{poll['questions']}}
 <br>
@@ -14,4 +15,5 @@ Answers:
 <div>{{answer[0]}} has {{answer[1]}} votes</div>
 <br>
 {% endfor %}
+{% endif %}
 {% endblock %}
