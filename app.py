@@ -201,16 +201,17 @@ def answer_poll(id):
     sql2 = text('SELECT id, option FROM options WHERE poll_id=:id')
     result2 = db.session.execute(sql2, {"id":id})
     options = result2.fetchall()
-    return render_template('answer_poll.html', question=question, options=options)
+    return render_template('answer_poll.html', question=question, options=options, id=id)
 
 @app.route('/poll_answers', methods=['POST'])
 def poll_answers():
     if 'input' in request.form:
+        id = request.form['id']
         option_id = request.form['input']
         sql = text('INSERT INTO answers (options_id, made_at) VALUES (:option_id, NOW())')
         db.session.execute(sql, {"option_id":option_id})
         db.session.commit()
-        return redirect('/polls')
+        return redirect('/check_answers/' + str(id))
     else:
         return render_template('error.html', error_message='No valid answer given')
     
